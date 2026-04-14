@@ -643,6 +643,17 @@ self.addEventListener('fetch', event => {
             elevation: { label: 'Høyde', unit: 'm' }
         };
 
+        function updateModeLabels() {
+            const modeInfo = {
+                steps: { label: 'Skritt', unit: 'skritt', placeholder: 'Hvor mange skritt?' },
+                km: { label: 'KM', unit: 'km', placeholder: 'Hvor mange km?' },
+                elevation: { label: 'Høyde', unit: 'm', placeholder: 'Hvor mange meter?' }
+            };
+            const info = modeInfo[currentMode];
+            document.getElementById('add-label').textContent = `Legg til ${info.label.toLowerCase()}`;
+            document.getElementById('daily-steps').placeholder = info.placeholder;
+        }
+
         function updateGoalLabel() {
             const modeNames = {
                 steps: 'Skritt',
@@ -666,6 +677,7 @@ self.addEventListener('fetch', event => {
                 btn.classList.toggle('active', btn.dataset.mode === mode);
             });
             updateGoalLabel();
+            updateModeLabels();
         }
 
         function selectPeriod(period) {
@@ -792,8 +804,9 @@ self.addEventListener('fetch', event => {
                 customInput.style.display = 'none';
             }
             
-            // Oppdater label
+            // Oppdater labels
             updateGoalLabel();
+            updateModeLabels();
             
             // Vis setup section
             document.querySelector('.setup-section').classList.remove('hidden');
@@ -868,6 +881,7 @@ self.addEventListener('fetch', event => {
             });
             document.getElementById('steps-date').value = getTodayDateString();
             updateGoalLabel();
+            updateModeLabels();
             updateDisplay();
         });
 
