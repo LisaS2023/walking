@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#5a8a6d">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Skritt Tracker">
-    <meta name="description" content="Spor dine daglige skritt mot ukentlige mål">
-    <title>Skritt Tracker</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180'/><text x='90' y='110' font-size='100' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180'/><text x='90' y='110' font-size='100' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>">
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Skritt%20Tracker%22,%22short_name%22:%22Skritt%22,%22description%22:%22Spor%20dine%20skritt%20mot%20ukentlige%20mål%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%2310b981%22,%22orientation%22:%22portrait-primary%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%2310b981' width='192' height='192'/><text x='96' y='130' font-size='120' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22}]}">
+    <meta name="apple-mobile-web-app-title" content="Tracker">
+    <meta name="description" content="Track dine målinger - skritt, km eller høyde">
+    <title>Tracker</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%235a8a6d;stop-opacity:1'/><stop offset='100%' style='stop-color:%23355e3f;stop-opacity:1'/></linearGradient></defs><rect fill='url(%23grad)' width='180' height='180'/><text x='90' y='110' font-size='80' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>🥾</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%235a8a6d;stop-opacity:1'/><stop offset='100%' style='stop-color:%23355e3f;stop-opacity:1'/></linearGradient></defs><rect fill='url(%23grad)' width='180' height='180'/><text x='90' y='110' font-size='80' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>🥾</text></svg>">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Tracker%22,%22short_name%22:%22Tracker%22,%22description%22:%22Track dine målinger%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f5f1e8%22,%22theme_color%22:%22%235a8a6d%22,%22orientation%22:%22portrait-primary%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' style='stop-color:%235a8a6d;stop-opacity:1'/><stop offset='100%' style='stop-color:%23355e3f;stop-opacity:1'/></linearGradient></defs><rect fill='url(%23grad)' width='192' height='192'/><text x='96' y='130' font-size='100' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>🥾</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22}]}">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -26,10 +26,11 @@
         html, body {
             width: 100%;
             height: 100%;
-            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f8 100%);
-            color: #1f2937;
+            font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(180deg, #f5f1e8 0%, #eae5da 50%, #e0dbd0 100%);
+            color: #2c3e2f;
             overflow: hidden;
+            position: relative;
         }
 
         body {
@@ -37,9 +38,28 @@
             flex-direction: column;
         }
 
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(144, 185, 155, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(184, 145, 106, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+            animation: gradientShift 20s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.7; }
+        }
+
         .status-bar {
             height: max(env(safe-area-inset-top), 12px);
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(90deg, #5a8a6d 0%, #7aad8a 50%, #355e3f 100%);
+            position: relative;
+            z-index: 2;
         }
 
         .safe-area-container {
@@ -47,6 +67,8 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            position: relative;
+            z-index: 2;
         }
 
         .app-content {
@@ -65,21 +87,40 @@
         }
 
         header {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #5a8a6d 0%, #7aad8a 50%, #355e3f 100%);
             color: white;
-            padding: 28px 20px;
+            padding: 40px 20px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 10;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
-            animation: headerSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(90, 138, 109, 0.25);
+            animation: headerSlideIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+            z-index: 1;
         }
 
         @keyframes headerSlideIn {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-30px);
             }
             to {
                 opacity: 1;
@@ -87,46 +128,45 @@
             }
         }
 
-        .header-icon {
-            font-size: 44px;
-            margin-bottom: 12px;
-            display: block;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: -0.8px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .main-content {
             flex: 1;
-            padding: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
 
         .card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 
+                0 8px 24px rgba(90, 138, 109, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(144, 185, 155, 0.3);
             backdrop-filter: blur(10px);
-            animation: cardSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            animation: cardSlideIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            position: relative;
+            overflow: hidden;
         }
 
         @keyframes cardSlideIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(24px);
             }
             to {
                 opacity: 1;
@@ -134,140 +174,182 @@
             }
         }
 
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(1) { animation-delay: 0.15s; }
+        .card:nth-child(2) { animation-delay: 0.25s; }
+        .card:nth-child(3) { animation-delay: 0.35s; }
+        .card:nth-child(4) { animation-delay: 0.45s; }
 
         .card-title {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            color: #10b981;
+            color: #5a8a6d;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            opacity: 0.8;
+            letter-spacing: 1.5px;
+            margin-bottom: 18px;
+            opacity: 0.85;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         label {
-            font-size: 13px;
-            color: #6b7280;
+            font-size: 12px;
+            color: #5a6d5a;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input[type="number"],
-        input[type="date"] {
+        input[type="date"],
+        select {
             width: 100%;
             padding: 14px 16px;
             font-size: 16px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #d4d0c8;
             border-radius: 14px;
-            background: white;
-            color: #1f2937;
+            background: rgba(245, 241, 232, 0.8);
+            color: #2c3e2f;
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Poppins', system-ui;
         }
 
         input[type="number"]:focus,
-        input[type="date"]:focus {
+        input[type="date"]:focus,
+        select:focus {
             outline: none;
-            border-color: #10b981;
-            background: #f0fdf4;
-            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.1);
+            border-color: #5a8a6d;
+            background: rgba(144, 185, 155, 0.1);
+            box-shadow: 0 0 0 12px rgba(144, 185, 155, 0.08);
             transform: scale(1.02);
         }
 
-        input[type="number"]::placeholder {
-            color: #d1d5db;
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .mode-button {
+            padding: 12px;
+            border: 2px solid #d4d0c8;
+            border-radius: 12px;
+            background: rgba(245, 241, 232, 0.8);
+            color: #5a6d5a;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', system-ui;
+        }
+
+        .mode-button.active {
+            border-color: #5a8a6d;
+            background: linear-gradient(135deg, rgba(144, 185, 155, 0.25) 0%, rgba(144, 185, 155, 0.15) 100%);
+            color: #355e3f;
+            box-shadow: 0 0 0 8px rgba(144, 185, 155, 0.1);
+        }
+
+        .period-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .period-button {
+            padding: 12px;
+            border: 2px solid #d4d0c8;
+            border-radius: 12px;
+            background: rgba(245, 241, 232, 0.8);
+            color: #5a6d5a;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', system-ui;
+        }
+
+        .period-button.active {
+            border-color: #5a8a6d;
+            background: linear-gradient(135deg, rgba(144, 185, 155, 0.25) 0%, rgba(144, 185, 155, 0.15) 100%);
+            color: #355e3f;
+            box-shadow: 0 0 0 8px rgba(144, 185, 155, 0.1);
         }
 
         .stat-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 14px;
+            margin-bottom: 18px;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-            border-radius: 14px;
-            padding: 14px;
-            border: 1px solid #d1fae5;
+            background: linear-gradient(135deg, rgba(144, 185, 155, 0.15) 0%, rgba(184, 145, 106, 0.1) 100%);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(144, 185, 155, 0.25);
+            backdrop-filter: blur(10px);
         }
 
         .stat-label {
-            font-size: 12px;
-            color: #059669;
-            font-weight: 600;
+            font-size: 11px;
+            color: #5a8a6d;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
         }
 
         .stat-value {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            color: #10b981;
+            color: #355e3f;
             font-variant-numeric: tabular-nums;
-            animation: numberPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes numberPop {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         .progress-section {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .progress-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #6b7280;
-            margin-bottom: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #5a6d5a;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .progress-percentage {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .progress-bar-container {
-            position: relative;
             width: 100%;
             height: 12px;
-            background: #e5e7eb;
+            background: #e8e3d8;
             border-radius: 6px;
             overflow: hidden;
+            border: 1px solid rgba(144, 185, 155, 0.2);
         }
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(90deg, #5a8a6d 0%, #7aad8a 50%, #b89169 100%);
             border-radius: 6px;
-            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                0 0 16px rgba(90, 138, 109, 0.4),
+                0 0 32px rgba(184, 145, 106, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -277,7 +359,7 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shimmer 2s infinite;
+            animation: shimmer 2.5s infinite;
         }
 
         @keyframes shimmer {
@@ -285,114 +367,61 @@
             100% { transform: translateX(100%); }
         }
 
-        .completion-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            color: #065f46;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            margin-top: 16px;
-            animation: badgePulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 2px solid #6ee7b7;
-        }
-
-        @keyframes badgePulse {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) translateY(-10px);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
         .button-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 12px;
+            margin-top: 14px;
         }
 
         button {
             padding: 16px;
             border: none;
             border-radius: 14px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             -webkit-user-select: none;
             user-select: none;
-            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-            letter-spacing: 0.3px;
+            font-family: 'Poppins', system-ui;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, #5a8a6d 0%, #7aad8a 50%, #355e3f 100%);
             color: white;
-            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 20px rgba(90, 138, 109, 0.3);
         }
 
         .btn-primary:active {
-            transform: scale(0.96);
-            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
+            transform: scale(0.95);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            color: #374151;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .btn-secondary:active {
-            background: #e5e7eb;
-            transform: scale(0.96);
+            background: rgba(232, 227, 216, 0.8);
+            color: #5a6d5a;
+            box-shadow: 0 4px 12px rgba(90, 138, 109, 0.1);
+            border: 1px solid rgba(144, 185, 155, 0.2);
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
-            color: #7f1d1d;
-            box-shadow: 0 4px 8px rgba(252, 165, 165, 0.3);
-        }
-
-        .btn-danger:active {
-            transform: scale(0.96);
+            background: linear-gradient(135deg, rgba(207, 100, 100, 0.6) 0%, rgba(180, 70, 70, 0.5) 100%);
+            color: #f5e8e0;
+            box-shadow: 0 4px 12px rgba(207, 100, 100, 0.25);
         }
 
         .btn-small {
             padding: 12px 16px;
-            font-size: 13px;
+            font-size: 12px;
             flex: 1;
         }
 
         .empty-state {
             text-align: center;
             padding: 48px 24px;
-            color: #9ca3af;
-            font-size: 15px;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .empty-state-icon {
-            font-size: 56px;
-            margin-bottom: 16px;
-            opacity: 0.6;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            color: #8a9a88;
         }
 
         .daily-log {
@@ -406,19 +435,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 14px 0;
-            border-bottom: 1px solid #f3f4f6;
-            animation: slideInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            border-bottom: 1px solid rgba(144, 185, 155, 0.1);
         }
 
         .daily-entry:last-child {
@@ -432,124 +449,57 @@
         }
 
         .daily-entry-date {
-            font-size: 12px;
-            color: #9ca3af;
-            font-weight: 600;
+            font-size: 11px;
+            color: #8a9a88;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
 
         .daily-entry-steps {
             font-size: 18px;
             font-weight: 700;
-            color: #1f2937;
+            color: #355e3f;
             font-variant-numeric: tabular-nums;
         }
 
         .daily-entry-remove {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            border: none;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, rgba(207, 100, 100, 0.25) 0%, rgba(180, 70, 70, 0.15) 100%);
+            border: 1px solid rgba(207, 100, 100, 0.3);
             border-radius: 10px;
-            color: #dc2626;
-            font-size: 22px;
+            color: #cf6464;
+            font-size: 24px;
             cursor: pointer;
-            transition: all 0.2s;
-            -webkit-user-select: none;
-            user-select: none;
+            padding: 0;
         }
 
-        .daily-entry-remove:active {
-            background: #fecaca;
-            transform: scale(0.9);
-        }
-
-        .setup-section {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .setup-section.hidden {
-            display: none;
-        }
-
-        .tracking-section {
-            display: flex;
-            flex-direction: column;
-        }
-
+        .setup-section.hidden,
         .tracking-section.hidden {
             display: none;
         }
 
-        .section-spacer {
-            height: 4px;
-        }
-
         .app-content::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .app-content::-webkit-scrollbar-track {
-            background: transparent;
+            width: 5px;
         }
 
         .app-content::-webkit-scrollbar-thumb {
-            background: rgba(16, 185, 129, 0.3);
-            border-radius: 2px;
-        }
-
-        .app-content::-webkit-scrollbar-thumb:hover {
-            background: rgba(16, 185, 129, 0.5);
-        }
-
-        @supports (padding: max(0px)) {
-            body {
-                padding-left: env(safe-area-inset-left);
-                padding-right: env(safe-area-inset-right);
-            }
+            background: rgba(144, 185, 155, 0.3);
+            border-radius: 3px;
         }
 
         .confetti {
             position: fixed;
-            width: 8px;
-            height: 8px;
-            background: #10b981;
+            width: 10px;
+            height: 10px;
             pointer-events: none;
             animation: confettiFall 3s ease-out forwards;
         }
 
         @keyframes confettiFall {
             to {
-                transform: translateY(100vh) rotate(360deg);
+                transform: translateY(100vh) rotate(720deg);
                 opacity: 0;
-            }
-        }
-
-        @media (max-height: 640px) {
-            header {
-                padding: 20px 20px;
-            }
-
-            header h1 {
-                font-size: 24px;
-            }
-
-            .header-icon {
-                font-size: 36px;
-            }
-
-            .main-content {
-                gap: 10px;
-                padding: 12px;
-            }
-
-            .card {
-                padding: 16px;
             }
         }
     </style>
@@ -559,8 +509,9 @@
     
     <div class="safe-area-container">
         <header>
-            <span class="header-icon">👟</span>
-            <h1>Skritt Tracker</h1>
+            <div class="header-content">
+                <h1>Tracker</h1>
+            </div>
         </header>
 
         <div class="app-content">
@@ -569,9 +520,31 @@
                     <!-- Setup Section -->
                     <div class="setup-section">
                         <div class="card">
-                            <div class="card-title">Ukentlig mål</div>
+                            <div class="card-title">Velg hva du vil tracke</div>
+                            <div class="mode-selector">
+                                <button class="mode-button active" onclick="selectMode('steps')" data-mode="steps">👟 Skritt</button>
+                                <button class="mode-button" onclick="selectMode('km')" data-mode="km">🏃 KM</button>
+                                <button class="mode-button" onclick="selectMode('elevation')" data-mode="elevation">⛰️ Høyde</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title">Velg periode</div>
+                            <div class="period-selector">
+                                <button class="period-button active" onclick="selectPeriod('week')" data-period="week">📅 Ukentlig</button>
+                                <button class="period-button" onclick="selectPeriod('month')" data-period="month">📆 Månedlig</button>
+                                <button class="period-button" onclick="selectPeriod('custom')" data-period="custom">⚙️ Egendefinert</button>
+                            </div>
+                            <div id="custom-period-input" style="display: none; margin-top: 14px;">
+                                <label for="custom-days">Antall dager:</label>
+                                <input type="number" id="custom-days" placeholder="F.eks: 14" min="1" max="365" inputmode="decimal">
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title" id="goal-label">Ukentlig mål skritt</div>
                             <div class="input-group">
-                                <input type="number" id="weekly-goal" placeholder="Eksempel: 70000" inputmode="numeric">
+                                <input type="number" id="weekly-goal" placeholder="Eksempel: 70000" inputmode="decimal">
                                 <button class="btn-primary" onclick="setGoal()">Start tracking</button>
                             </div>
                         </div>
@@ -579,9 +552,8 @@
 
                     <!-- Tracking Section -->
                     <div class="tracking-section hidden">
-                        <!-- Progress Card -->
                         <div class="card">
-                            <div class="card-title">Denne uken</div>
+                            <div class="card-title" id="progress-title">Denne uken</div>
                             <div class="stat-grid">
                                 <div class="stat-card">
                                     <div class="stat-label">Mål</div>
@@ -596,57 +568,43 @@
                             <div class="progress-section">
                                 <div class="progress-label">
                                     <span>Fremgang</span>
-                                    <span class="progress-percentage" id="progress-percentage">0%</span>
+                                    <span id="progress-percentage">0%</span>
                                 </div>
                                 <div class="progress-bar-container">
                                     <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
                                 </div>
                             </div>
 
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #f3f4f6; margin-top: 12px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid rgba(144, 185, 155, 0.1); margin-top: 14px;">
                                 <div>
-                                    <div style="font-size: 12px; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px;">Registrert</div>
+                                    <div style="font-size: 11px; color: #8a9a88; font-weight: 700; text-transform: uppercase;">Registrert</div>
                                     <div class="stat-value" id="steps-done">0</div>
                                 </div>
                                 <div id="completion-message" style="display: none;">
-                                    <div class="completion-badge">
-                                        <span>✨</span>
-                                        <span>Mål nådd!</span>
-                                    </div>
+                                    <div style="font-size: 14px; font-weight: 700; color: #355e3f;">🎉 Mål nådd!</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="section-spacer"></div>
-
-                        <!-- Add Steps Card -->
                         <div class="card">
-                            <div class="card-title">Legg til skritt</div>
+                            <div class="card-title" id="add-label">Legg til skritt</div>
                             <div class="input-group">
                                 <label for="steps-date">Hvilken dag?</label>
                                 <input type="date" id="steps-date">
-                                <input type="number" id="daily-steps" placeholder="Hvor mange skritt?" inputmode="numeric">
+                                <input type="number" id="daily-steps" placeholder="Hvor mange?" inputmode="decimal">
                                 <button class="btn-primary" onclick="addDailySteps()">Legg til</button>
                             </div>
                         </div>
 
-                        <div class="section-spacer"></div>
-
-                        <!-- History Card -->
                         <div class="card">
                             <div class="card-title">Din uke</div>
                             <div id="daily-log"></div>
                         </div>
 
-                        <div class="section-spacer"></div>
-
-                        <!-- Action Buttons -->
                         <div class="button-group" style="flex-direction: row;">
-                            <button class="btn-secondary btn-small" onclick="changeGoal()">Endre mål</button>
+                            <button class="btn-secondary btn-small" onclick="changeMode()">Endre</button>
                             <button class="btn-danger btn-small" onclick="resetWeekConfirm()">Tilbakestill</button>
                         </div>
-
-                        <div style="height: 24px;"></div>
                     </div>
                 </div>
             </div>
@@ -656,13 +614,10 @@
     <script>
         if ('serviceWorker' in navigator) {
             const swCode = `
-const CACHE_NAME = 'skritt-tracker-v1';
-const urlsToCache = ['/'];
-
+const CACHE_NAME = 'tracker-v1';
 self.addEventListener('install', event => {
     event.waitUntil(caches.open(CACHE_NAME));
 });
-
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request).then(response => {
@@ -678,7 +633,54 @@ self.addEventListener('fetch', event => {
             navigator.serviceWorker.register(swUrl).catch(() => {});
         }
 
-        const STORAGE_KEY = 'skritt_tracker_data';
+        const STORAGE_KEY = 'tracker_data';
+        let currentMode = 'steps';
+        let currentPeriod = 'week';
+
+        const modes = {
+            steps: { label: 'Skritt', unit: 'skritt' },
+            km: { label: 'KM', unit: 'km' },
+            elevation: { label: 'Høyde', unit: 'm' }
+        };
+
+        function updateGoalLabel() {
+            const modeNames = {
+                steps: 'Skritt',
+                km: 'KM',
+                elevation: 'Høyde'
+            };
+            const periodNames = {
+                week: 'Ukentlig',
+                month: 'Månedlig',
+                custom: 'Mål'
+            };
+            const modeName = modeNames[currentMode];
+            const periodName = periodNames[currentPeriod];
+            const labelText = `${periodName} mål ${modeName.toLowerCase()}`;
+            document.getElementById('goal-label').textContent = labelText.toUpperCase();
+        }
+
+        function selectMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+            updateGoalLabel();
+        }
+
+        function selectPeriod(period) {
+            currentPeriod = period;
+            document.querySelectorAll('.period-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.period === period);
+            });
+            const customInput = document.getElementById('custom-period-input');
+            if (period === 'custom') {
+                customInput.style.display = 'block';
+            } else {
+                customInput.style.display = 'none';
+            }
+            updateGoalLabel();
+        }
 
         function getTodayDateString() {
             const today = new Date();
@@ -692,12 +694,14 @@ self.addEventListener('fetch', event => {
             try {
                 const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
                 return {
+                    mode: data.mode || 'steps',
+                    period: data.period || 'week',
                     weeklyGoal: data.weeklyGoal || null,
                     entries: data.entries || [],
-                    weekStart: data.weekStart || null
+                    customDays: data.customDays || null
                 };
             } catch (e) {
-                return { weeklyGoal: null, entries: [], weekStart: null };
+                return { mode: 'steps', period: 'week', weeklyGoal: null, entries: [], customDays: null };
             }
         }
 
@@ -709,88 +713,51 @@ self.addEventListener('fetch', event => {
             }
         }
 
-        function createConfetti() {
-            const colors = ['#10b981', '#059669', '#6ee7b7', '#a7f3d0'];
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDuration = (2 + Math.random() * 1) + 's';
-                    document.body.appendChild(confetti);
-                    setTimeout(() => confetti.remove(), 3000);
-                }, i * 30);
-            }
-        }
-
         function setGoal() {
-            const goalInput = document.getElementById('weekly-goal');
-            const goal = parseInt(goalInput.value);
-
+            const goal = parseFloat(document.getElementById('weekly-goal').value);
             if (!goal || goal <= 0) {
-                alert('Vennligst skriv inn et gyldig mål (større enn 0)');
+                alert('Vennligst skriv inn et gyldig mål');
                 return;
             }
-
-            const now = new Date();
-            const weekStart = new Date(now);
-            weekStart.setDate(now.getDate() - now.getDay());
-            weekStart.setHours(0, 0, 0, 0);
-
+            let customDays = null;
+            if (currentPeriod === 'custom') {
+                customDays = parseInt(document.getElementById('custom-days').value);
+                if (!customDays || customDays < 1 || customDays > 365) {
+                    alert('Vennligst skriv inn antall dager (1-365)');
+                    return;
+                }
+            }
             saveData({
+                mode: currentMode,
+                period: currentPeriod,
                 weeklyGoal: goal,
                 entries: [],
-                weekStart: weekStart.toISOString()
+                customDays: customDays
             });
-
-            goalInput.value = '';
             showTrackingSection();
             updateDisplay();
         }
 
-        function changeGoal() {
-            const data = loadData();
-            document.getElementById('weekly-goal').value = data.weeklyGoal;
-            document.querySelector('.setup-section').classList.remove('hidden');
-            document.querySelector('.tracking-section').classList.add('hidden');
-            document.getElementById('weekly-goal').focus();
-        }
-
         function addDailySteps() {
-            const stepsInput = document.getElementById('daily-steps');
-            const dateInput = document.getElementById('steps-date');
-            const steps = parseInt(stepsInput.value);
-
-            if (!steps || steps < 0) {
-                alert('Vennligst skriv inn et gyldig antall skritt');
+            const steps = parseFloat(document.getElementById('daily-steps').value);
+            const date = document.getElementById('steps-date').value;
+            if (!steps || steps < 0 || !date) {
+                alert('Vennligst fyll inn alle felt');
                 return;
             }
-
-            if (!dateInput.value) {
-                alert('Vennligst velg en dag');
-                return;
-            }
-
             const data = loadData();
-            const selectedDate = new Date(dateInput.value);
-            selectedDate.setHours(0, 0, 0, 0);
-
+            const selectedDate = new Date(date);
             const existingIndex = data.entries.findIndex(e => new Date(e.date).toDateString() === selectedDate.toDateString());
-
             if (existingIndex >= 0) {
-                data.entries[existingIndex].steps = steps;
+                data.entries[existingIndex].value = steps;
             } else {
                 data.entries.push({
                     date: selectedDate.toISOString(),
-                    steps: steps
+                    value: steps
                 });
             }
-
             saveData(data);
-            stepsInput.value = '';
-            dateInput.value = getTodayDateString();
-            stepsInput.focus();
+            document.getElementById('daily-steps').value = '';
             updateDisplay();
         }
 
@@ -801,8 +768,17 @@ self.addEventListener('fetch', event => {
             updateDisplay();
         }
 
+        function changeMode() {
+            const data = loadData();
+            currentMode = data.mode;
+            currentPeriod = data.period;
+            document.querySelector('.setup-section').classList.remove('hidden');
+            document.querySelector('.tracking-section').classList.add('hidden');
+        }
+
         function resetWeekConfirm() {
-            if (confirm('Vil du slette all data for denne uken? Dette kan ikke angres.')) {
+            const periodText = currentPeriod === 'week' ? 'uken' : 'måneden';
+            if (confirm(`Slett all data for denne ${periodText}?`)) {
                 const data = loadData();
                 data.entries = [];
                 saveData(data);
@@ -817,80 +793,66 @@ self.addEventListener('fetch', event => {
 
         function updateDisplay() {
             const data = loadData();
-
             if (!data.weeklyGoal) {
                 document.querySelector('.setup-section').classList.remove('hidden');
                 document.querySelector('.tracking-section').classList.add('hidden');
                 return;
             }
-
             showTrackingSection();
-
-            const totalSteps = data.entries.reduce((sum, e) => sum + e.steps, 0);
-            const remaining = Math.max(0, data.weeklyGoal - totalSteps);
-            const progress = Math.min(100, (totalSteps / data.weeklyGoal) * 100);
-
-            document.getElementById('goal-display').textContent = data.weeklyGoal.toLocaleString('no-NO');
-            document.getElementById('steps-done').textContent = totalSteps.toLocaleString('no-NO');
-            document.getElementById('steps-remaining').textContent = remaining.toLocaleString('no-NO');
-
-            const progressBar = document.getElementById('progress-bar');
-            const progressPercentage = document.getElementById('progress-percentage');
-            progressBar.style.width = progress + '%';
-            progressPercentage.textContent = Math.round(progress) + '%';
-
-            const completionMsg = document.getElementById('completion-message');
-            if (remaining === 0 && totalSteps > 0) {
-                completionMsg.style.display = 'block';
-                createConfetti();
-            } else {
-                completionMsg.style.display = 'none';
+            
+            let periodTitle = 'Denne uken';
+            if (data.period === 'month') {
+                periodTitle = 'Denne måneden';
+            } else if (data.period === 'custom') {
+                periodTitle = `Neste ${data.customDays} dager`;
             }
-
+            
+            const totalValue = data.entries.reduce((sum, e) => sum + e.value, 0);
+            const remaining = Math.max(0, data.weeklyGoal - totalValue);
+            const progress = Math.min(100, (totalValue / data.weeklyGoal) * 100);
+            document.getElementById('progress-title').textContent = periodTitle;
+            document.getElementById('goal-display').textContent = data.weeklyGoal;
+            document.getElementById('steps-done').textContent = totalValue;
+            document.getElementById('steps-remaining').textContent = remaining;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-percentage').textContent = Math.round(progress) + '%';
             const log = document.getElementById('daily-log');
             if (data.entries.length === 0) {
-                log.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div>Ingen registreringer ennå. Legg til dine skritt!</div></div>';
+                log.innerHTML = '<div class="empty-state">Legg til dine målinger</div>';
             } else {
-                log.innerHTML = '<div class="daily-log">' + data.entries
-                    .sort((a, b) => new Date(b.date) - new Date(a.date))
-                    .map(entry => {
-                        const date = new Date(entry.date);
-                        const dayName = date.toLocaleDateString('no-NO', { weekday: 'short', day: 'numeric', month: 'short' });
-                        return `
-                            <div class="daily-entry">
-                                <div class="daily-entry-info">
-                                    <div class="daily-entry-date">${dayName}</div>
-                                    <div class="daily-entry-steps">${entry.steps.toLocaleString('no-NO')} skritt</div>
-                                </div>
-                                <button class="daily-entry-remove" onclick="removeDailyEntry('${entry.date}')" title="Fjern">×</button>
-                            </div>
-                        `;
-                    }).join('') + '</div>';
+                log.innerHTML = '<div class="daily-log">' + data.entries.sort((a, b) => new Date(b.date) - new Date(a.date)).map(e => {
+                    const date = new Date(e.date);
+                    const day = date.toLocaleDateString('no-NO', { weekday: 'short', day: 'numeric', month: 'short' });
+                    return `<div class="daily-entry"><div class="daily-entry-info"><div class="daily-entry-date">${day}</div><div class="daily-entry-steps">${e.value}</div></div><button class="daily-entry-remove" onclick="removeDailyEntry('${e.date}')">×</button></div>`;
+                }).join('') + '</div>';
             }
         }
 
-        // Prevent zooming on double tap
+        document.addEventListener('DOMContentLoaded', () => {
+            const data = loadData();
+            currentMode = data.mode;
+            currentPeriod = data.period;
+            document.querySelectorAll('.mode-button').forEach(btn => {
+                if (btn.dataset.mode === currentMode) btn.classList.add('active');
+            });
+            document.querySelectorAll('.period-button').forEach(btn => {
+                if (btn.dataset.period === currentPeriod) btn.classList.add('active');
+            });
+            document.getElementById('steps-date').value = getTodayDateString();
+            updateGoalLabel();
+            updateDisplay();
+        });
+
         let lastTouchEnd = 0;
-        document.addEventListener('touchend', (event) => {
+        document.addEventListener('touchend', (e) => {
             const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
+            if (now - lastTouchEnd <= 300) e.preventDefault();
             lastTouchEnd = now;
         }, false);
 
-        // Prevent pinch zoom
-        document.addEventListener('touchmove', (event) => {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 1) e.preventDefault();
         }, { passive: false });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('steps-date').value = getTodayDateString();
-            updateDisplay();
-        });
     </script>
 </body>
 </html>
