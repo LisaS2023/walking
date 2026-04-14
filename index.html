@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#10b981">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Skritt Tracker">
+    <meta name="description" content="Spor dine daglige skritt mot ukentlige mål">
+    <title>Skritt Tracker</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180'/><text x='90' y='110' font-size='100' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180'/><text x='90' y='110' font-size='100' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Skritt%20Tracker%22,%22short_name%22:%22Skritt%22,%22description%22:%22Spor%20dine%20skritt%20mot%20ukentlige%20mål%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%2310b981%22,%22orientation%22:%22portrait-primary%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%2310b981' width='192' height='192'/><text x='96' y='130' font-size='120' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22}]}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #f8f9fa;
+            color: #1f2937;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: max(env(safe-area-inset-top), 12px);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .safe-area-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        header {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .card-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            color: #1f2937;
+            font-weight: 500;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        input[type="number"]::placeholder {
+            color: #9ca3af;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #10b981;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-container {
+            margin: 16px 0 12px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            border-radius: 4px;
+            transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: attr(data-percent);
+            position: absolute;
+            top: -24px;
+            right: 0;
+            font-size: 11px;
+            font-weight: 700;
+            color: #10b981;
+            white-space: nowrap;
+        }
+
+        .completion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #d1fae5;
+            color: #065f46;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-user-select: none;
+            user-select: none;
+            active: {
+                transform: scale(0.96);
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:active {
+            background: #e5e7eb;
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .btn-danger:active {
+            background: #fecaca;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 32px 20px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .daily-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .daily-entry:last-child {
+            border-bottom: none;
+        }
+
+        .daily-entry-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .daily-entry-date {
+            font-size: 13px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .daily-entry-steps {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .daily-entry-remove {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fef2f2;
+            border: none;
+            border-radius: 8px;
+            color: #ef4444;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .daily-entry-remove:active {
+            background: #fee2e2;
+            transform: scale(0.9);
+        }
+
+        .setup-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .setup-section.hidden {
+            display: none;
+        }
+
+        .tracking-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tracking-section.hidden {
+            display: none;
+        }
+
+        .section-spacer {
+            height: 8px;
+        }
+
+        .button-small {
+            padding: 10px 12px;
+            font-size: 13px;
+            flex: initial;
+            width: auto;
+        }
+
+        .no-scroll {
+            overflow: hidden;
+        }
+
+        /* Scrollbar styling */
+        .app-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .app-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .app-content::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .app-content::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* iOS keyboard handling */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            background: white;
+            width: 100%;
+            border-radius: 20px 20px 0 0;
+            padding: 20px;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
+            animation: slideUp 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .daily-log {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-height: 640px) {
+            header {
+                padding: 16px 20px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            .card {
+                padding: 12px;
+            }
+
+            .main-content {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar"></div>
+    
+    <div class="safe-area-container">
+        <header>
+            <span class="header-icon">👟</span>
+            <h1>Skritt Tracker</h1>
+        </header>
+
+        <div class="app-content">
+            <div class="container">
+                <div class="main-content">
+                    <!-- Setup Section -->
+                    <div class="setup-section">
+                        <div class="card">
+                            <div class="card-title">Ukentlig mål</div>
+                            <div class="input-group">
+                                <input type="number" id="weekly-goal" placeholder="Eksempel: 70000" inputmode="numeric">
+                                <button class="btn-primary" onclick="setGoal()">Lagre mål</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tracking Section -->
+                    <div class="tracking-section hidden">
+                        <!-- Progress Card -->
+                        <div class="card">
+                            <div class="card-title">Denne uken</div>
+                            <div class="stat-row">
+                                <span class="stat-label">Mål</span>
+                                <span class="stat-value" id="goal-display">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Registrert</span>
+                                <span class="stat-value" id="steps-done">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Igjen</span>
+                                <span class="stat-value" id="steps-remaining">0</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill" data-percent="0%"></div>
+                                </div>
+                            </div>
+                            <div id="completion-message" style="display: none;">
+                                <div class="completion-badge">
+                                    <span>✓</span>
+                                    <span>Mål nådd!</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-spacer"></div>
+
+                        <!-- Add Steps Card -->
+                        <div class="card">
+                            <div class="card-title">Legg til skritt</div>
+                            <div class="input-group">
+                                <input type="number" id="daily-steps" placeholder="Hvor mange skritt?" inputmode="numeric">
+                                <button class="btn-primary" onclick="addDailySteps()">Legg til</button>
+                            </div>
+                        </div>
+
+                        <div class="section-spacer"></div>
+
+                        <!-- History Card -->
+                        <div class="card">
+                            <div class="card-title">Din uke</div>
+                            <div id="daily-log"></div>
+                        </div>
+
+                        <div class="section-spacer"></div>
+
+                        <!-- Action Buttons -->
+                        <div class="button-group" style="flex-wrap: wrap;">
+                            <button class="btn-secondary button-small" onclick="changeGoal()">Endre mål</button>
+                            <button class="btn-danger button-small" onclick="resetWeekConfirm()">Tilbakestill</button>
+                        </div>
+
+                        <div style="height: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            const swCode = `
+const CACHE_NAME = 'skritt-tracker-v1';
+const urlsToCache = ['/'];
+
+self.addEventListener('install', event => {
+    event.waitUntil(caches.open(CACHE_NAME));
+});
+
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            return response || fetch(event.request).catch(() => {
+                return caches.match('/');
+            });
+        })
+    );
+});
+`;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(() => {});
+        }
+
+        const STORAGE_KEY = 'skritt_tracker_data';
+
+        function loadData() {
+            try {
+                const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                return {
+                    weeklyGoal: data.weeklyGoal || null,
+                    entries: data.entries || [],
+                    weekStart: data.weekStart || null
+                };
+            } catch (e) {
+                return { weeklyGoal: null, entries: [], weekStart: null };
+            }
+        }
+
+        function saveData(data) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            } catch (e) {
+                console.error('Kunne ikke lagre data:', e);
+            }
+        }
+
+        function setGoal() {
+            const goalInput = document.getElementById('weekly-goal');
+            const goal = parseInt(goalInput.value);
+
+            if (!goal || goal <= 0) {
+                alert('Vennligst skriv inn et gyldig mål (større enn 0)');
+                return;
+            }
+
+            const now = new Date();
+            const weekStart = new Date(now);
+            weekStart.setDate(now.getDate() - now.getDay());
+            weekStart.setHours(0, 0, 0, 0);
+
+            saveData({
+                weeklyGoal: goal,
+                entries: [],
+                weekStart: weekStart.toISOString()
+            });
+
+            goalInput.value = '';
+            showTrackingSection();
+            updateDisplay();
+        }
+
+        function changeGoal() {
+            const data = loadData();
+            document.getElementById('weekly-goal').value = data.weeklyGoal;
+            document.querySelector('.setup-section').classList.remove('hidden');
+            document.querySelector('.tracking-section').classList.add('hidden');
+            document.getElementById('weekly-goal').focus();
+        }
+
+        function addDailySteps() {
+            const stepsInput = document.getElementById('daily-steps');
+            const steps = parseInt(stepsInput.value);
+
+            if (!steps || steps < 0) {
+                alert('Vennligst skriv inn et gyldig antall skritt');
+                return;
+            }
+
+            const data = loadData();
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const existingIndex = data.entries.findIndex(e => new Date(e.date).toDateString() === today.toDateString());
+
+            if (existingIndex >= 0) {
+                data.entries[existingIndex].steps = steps;
+            } else {
+                data.entries.push({
+                    date: today.toISOString(),
+                    steps: steps
+                });
+            }
+
+            saveData(data);
+            stepsInput.value = '';
+            stepsInput.focus();
+            updateDisplay();
+        }
+
+        function removeDailyEntry(date) {
+            const data = loadData();
+            data.entries = data.entries.filter(e => e.date !== date);
+            saveData(data);
+            updateDisplay();
+        }
+
+        function resetWeekConfirm() {
+            if (confirm('Vil du slette all data for denne uken? Dette kan ikke angres.')) {
+                const data = loadData();
+                data.entries = [];
+                saveData(data);
+                updateDisplay();
+            }
+        }
+
+        function showTrackingSection() {
+            document.querySelector('.setup-section').classList.add('hidden');
+            document.querySelector('.tracking-section').classList.remove('hidden');
+        }
+
+        function updateDisplay() {
+            const data = loadData();
+
+            if (!data.weeklyGoal) {
+                document.querySelector('.setup-section').classList.remove('hidden');
+                document.querySelector('.tracking-section').classList.add('hidden');
+                return;
+            }
+
+            showTrackingSection();
+
+            const totalSteps = data.entries.reduce((sum, e) => sum + e.steps, 0);
+            const remaining = Math.max(0, data.weeklyGoal - totalSteps);
+            const progress = Math.min(100, (totalSteps / data.weeklyGoal) * 100);
+
+            document.getElementById('goal-display').textContent = data.weeklyGoal.toLocaleString('no-NO');
+            document.getElementById('steps-done').textContent = totalSteps.toLocaleString('no-NO');
+            document.getElementById('steps-remaining').textContent = remaining.toLocaleString('no-NO');
+
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = progress + '%';
+            progressFill.setAttribute('data-percent', Math.round(progress) + '%');
+
+            const completionMsg = document.getElementById('completion-message');
+            if (remaining === 0 && totalSteps > 0) {
+                completionMsg.style.display = 'block';
+            } else {
+                completionMsg.style.display = 'none';
+            }
+
+            const log = document.getElementById('daily-log');
+            if (data.entries.length === 0) {
+                log.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div>Ingen registreringer ennå. Legg til dine skritt!</div></div>';
+            } else {
+                log.innerHTML = '<div class="daily-log">' + data.entries
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .map(entry => {
+                        const date = new Date(entry.date);
+                        const dayName = date.toLocaleDateString('no-NO', { weekday: 'short', day: 'numeric', month: 'short' });
+                        return `
+                            <div class="daily-entry">
+                                <div class="daily-entry-info">
+                                    <div class="daily-entry-date">${dayName}</div>
+                                    <div class="daily-entry-steps">${entry.steps.toLocaleString('no-NO')} skritt</div>
+                                </div>
+                                <button class="daily-entry-remove" onclick="removeDailyEntry('${entry.date}')" title="Fjern">×</button>
+                            </div>
+                        `;
+                    }).join('') + '</div>';
+            }
+        }
+
+        // Prevent zooming on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (event) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // Prevent pinch zoom
+        document.addEventListener('touchmove', (event) => {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', updateDisplay);
+    </script>
+</body>
+</html>
