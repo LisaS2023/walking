@@ -13,6 +13,8 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2310b981' width='180' height='180'/><text x='90' y='110' font-size='100' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>">
     <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22Skritt%20Tracker%22,%22short_name%22:%22Skritt%22,%22description%22:%22Spor%20dine%20skritt%20mot%20ukentlige%20mål%22,%22start_url%22:%22/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23ffffff%22,%22theme_color%22:%22%2310b981%22,%22orientation%22:%22portrait-primary%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%2310b981' width='192' height='192'/><text x='96' y='130' font-size='120' font-weight='bold' fill='white' text-anchor='middle' font-family='system-ui'>👟</text></svg>%22,%22sizes%22:%22192x192%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%22}]}">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -24,8 +26,8 @@
         html, body {
             width: 100%;
             height: 100%;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: #f8f9fa;
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f4f8 100%);
             color: #1f2937;
             overflow: hidden;
         }
@@ -65,154 +67,19 @@
         header {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            padding: 24px 20px;
+            padding: 28px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 10;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+            animation: headerSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .header-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 16px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            border: 1px solid #f0f0f0;
-        }
-
-        .card-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: #6b7280;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        input[type="number"] {
-            width: 100%;
-            padding: 12px 14px;
-            font-size: 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            background: white;
-            color: #1f2937;
-            font-weight: 500;
-            transition: border-color 0.2s;
-        }
-
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #10b981;
-            background: #f0fdf4;
-        }
-
-        input[type="number"]::placeholder {
-            color: #9ca3af;
-        }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .stat-row:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: #6b7280;
-            font-weight: 500;
-        }
-
-        .stat-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #10b981;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .progress-container {
-            margin: 16px 0 12px 0;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
-            border-radius: 4px;
-            transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: attr(data-percent);
-            position: absolute;
-            top: -24px;
-            right: 0;
-            font-size: 11px;
-            font-weight: 700;
-            color: #10b981;
-            white-space: nowrap;
-        }
-
-        .completion-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #d1fae5;
-            color: #065f46;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 12px;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
+        @keyframes headerSlideIn {
             from {
                 opacity: 0;
-                transform: translateY(-8px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -220,77 +87,338 @@
             }
         }
 
+        .header-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            animation: cardSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #10b981;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            background: white;
+            color: #1f2937;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+        }
+
+        input[type="number"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #10b981;
+            background: #f0fdf4;
+            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.1);
+            transform: scale(1.02);
+        }
+
+        input[type="number"]::placeholder {
+            color: #d1d5db;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid #d1fae5;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #059669;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #10b981;
+            font-variant-numeric: tabular-nums;
+            animation: numberPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes numberPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .progress-section {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-percentage {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .progress-bar-container {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            background: #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+            border-radius: 6px;
+            transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .completion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 16px;
+            animation: badgePulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid #6ee7b7;
+        }
+
+        @keyframes badgePulse {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
         .button-group {
             display: flex;
-            gap: 8px;
+            flex-direction: column;
+            gap: 10px;
             margin-top: 12px;
         }
 
         button {
-            flex: 1;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             -webkit-user-select: none;
             user-select: none;
-            active: {
-                transform: scale(0.96);
-            }
+            font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+            letter-spacing: 0.3px;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
         }
 
         .btn-primary:active {
             transform: scale(0.96);
-            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
         }
 
         .btn-secondary {
-            background: #f3f4f6;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
             color: #374151;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         .btn-secondary:active {
             background: #e5e7eb;
+            transform: scale(0.96);
         }
 
         .btn-danger {
-            background: #fee2e2;
+            background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
             color: #7f1d1d;
+            box-shadow: 0 4px 8px rgba(252, 165, 165, 0.3);
         }
 
         .btn-danger:active {
-            background: #fecaca;
+            transform: scale(0.96);
+        }
+
+        .btn-small {
+            padding: 12px 16px;
+            font-size: 13px;
+            flex: 1;
         }
 
         .empty-state {
             text-align: center;
-            padding: 32px 20px;
+            padding: 48px 24px;
             color: #9ca3af;
-            font-size: 14px;
+            font-size: 15px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-            opacity: 0.5;
+            font-size: 56px;
+            margin-bottom: 16px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .daily-log {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .daily-entry {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 14px 0;
             border-bottom: 1px solid #f3f4f6;
-            animation: slideIn 0.3s ease-out;
+            animation: slideInLeft 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .daily-entry:last-child {
@@ -300,33 +428,35 @@
         .daily-entry-info {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
         }
 
         .daily-entry-date {
-            font-size: 13px;
+            font-size: 12px;
             color: #9ca3af;
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
         }
 
         .daily-entry-steps {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: #1f2937;
             font-variant-numeric: tabular-nums;
         }
 
         .daily-entry-remove {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #fef2f2;
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
             border: none;
-            border-radius: 8px;
-            color: #ef4444;
-            font-size: 20px;
+            border-radius: 10px;
+            color: #dc2626;
+            font-size: 22px;
             cursor: pointer;
             transition: all 0.2s;
             -webkit-user-select: none;
@@ -334,7 +464,7 @@
         }
 
         .daily-entry-remove:active {
-            background: #fee2e2;
+            background: #fecaca;
             transform: scale(0.9);
         }
 
@@ -357,21 +487,9 @@
         }
 
         .section-spacer {
-            height: 8px;
+            height: 4px;
         }
 
-        .button-small {
-            padding: 10px 12px;
-            font-size: 13px;
-            flex: initial;
-            width: auto;
-        }
-
-        .no-scroll {
-            overflow: hidden;
-        }
-
-        /* Scrollbar styling */
         .app-content::-webkit-scrollbar {
             width: 4px;
         }
@@ -381,15 +499,14 @@
         }
 
         .app-content::-webkit-scrollbar-thumb {
-            background: #d1d5db;
+            background: rgba(16, 185, 129, 0.3);
             border-radius: 2px;
         }
 
         .app-content::-webkit-scrollbar-thumb:hover {
-            background: #9ca3af;
+            background: rgba(16, 185, 129, 0.5);
         }
 
-        /* iOS keyboard handling */
         @supports (padding: max(0px)) {
             body {
                 padding-left: env(safe-area-inset-left);
@@ -397,76 +514,42 @@
             }
         }
 
-        .modal-overlay {
-            display: none;
+        .confetti {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 100;
-            animation: fadeIn 0.2s ease-out;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            pointer-events: none;
+            animation: confettiFall 3s ease-out forwards;
         }
 
-        .modal-overlay.active {
-            display: flex;
-            align-items: flex-end;
-        }
-
-        @keyframes fadeIn {
-            from {
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal {
-            background: white;
-            width: 100%;
-            border-radius: 20px 20px 0 0;
-            padding: 20px;
-            padding-bottom: calc(20px + env(safe-area-inset-bottom));
-            animation: slideUp 0.3s ease-out;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #1f2937;
-        }
-
-        .daily-log {
-            display: flex;
-            flex-direction: column;
         }
 
         @media (max-height: 640px) {
             header {
-                padding: 16px 20px;
+                padding: 20px 20px;
             }
 
             header h1 {
-                font-size: 20px;
+                font-size: 24px;
             }
 
-            .card {
-                padding: 12px;
+            .header-icon {
+                font-size: 36px;
             }
 
             .main-content {
-                gap: 8px;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            .card {
+                padding: 16px;
             }
         }
     </style>
@@ -489,7 +572,7 @@
                             <div class="card-title">Ukentlig mål</div>
                             <div class="input-group">
                                 <input type="number" id="weekly-goal" placeholder="Eksempel: 70000" inputmode="numeric">
-                                <button class="btn-primary" onclick="setGoal()">Lagre mål</button>
+                                <button class="btn-primary" onclick="setGoal()">Start tracking</button>
                             </div>
                         </div>
                     </div>
@@ -499,27 +582,37 @@
                         <!-- Progress Card -->
                         <div class="card">
                             <div class="card-title">Denne uken</div>
-                            <div class="stat-row">
-                                <span class="stat-label">Mål</span>
-                                <span class="stat-value" id="goal-display">0</span>
-                            </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Registrert</span>
-                                <span class="stat-value" id="steps-done">0</span>
-                            </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Igjen</span>
-                                <span class="stat-value" id="steps-remaining">0</span>
-                            </div>
-                            <div class="progress-container">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" id="progress-fill" data-percent="0%"></div>
+                            <div class="stat-grid">
+                                <div class="stat-card">
+                                    <div class="stat-label">Mål</div>
+                                    <div class="stat-value" id="goal-display">0</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Igjen</div>
+                                    <div class="stat-value" id="steps-remaining">0</div>
                                 </div>
                             </div>
-                            <div id="completion-message" style="display: none;">
-                                <div class="completion-badge">
-                                    <span>✓</span>
-                                    <span>Mål nådd!</span>
+                            
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Fremgang</span>
+                                    <span class="progress-percentage" id="progress-percentage">0%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #f3f4f6; margin-top: 12px;">
+                                <div>
+                                    <div style="font-size: 12px; color: #9ca3af; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px;">Registrert</div>
+                                    <div class="stat-value" id="steps-done">0</div>
+                                </div>
+                                <div id="completion-message" style="display: none;">
+                                    <div class="completion-badge">
+                                        <span>✨</span>
+                                        <span>Mål nådd!</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -530,6 +623,8 @@
                         <div class="card">
                             <div class="card-title">Legg til skritt</div>
                             <div class="input-group">
+                                <label for="steps-date">Hvilken dag?</label>
+                                <input type="date" id="steps-date">
                                 <input type="number" id="daily-steps" placeholder="Hvor mange skritt?" inputmode="numeric">
                                 <button class="btn-primary" onclick="addDailySteps()">Legg til</button>
                             </div>
@@ -546,12 +641,12 @@
                         <div class="section-spacer"></div>
 
                         <!-- Action Buttons -->
-                        <div class="button-group" style="flex-wrap: wrap;">
-                            <button class="btn-secondary button-small" onclick="changeGoal()">Endre mål</button>
-                            <button class="btn-danger button-small" onclick="resetWeekConfirm()">Tilbakestill</button>
+                        <div class="button-group" style="flex-direction: row;">
+                            <button class="btn-secondary btn-small" onclick="changeGoal()">Endre mål</button>
+                            <button class="btn-danger btn-small" onclick="resetWeekConfirm()">Tilbakestill</button>
                         </div>
 
-                        <div style="height: 20px;"></div>
+                        <div style="height: 24px;"></div>
                     </div>
                 </div>
             </div>
@@ -585,6 +680,14 @@ self.addEventListener('fetch', event => {
 
         const STORAGE_KEY = 'skritt_tracker_data';
 
+        function getTodayDateString() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
         function loadData() {
             try {
                 const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
@@ -603,6 +706,21 @@ self.addEventListener('fetch', event => {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
             } catch (e) {
                 console.error('Kunne ikke lagre data:', e);
+            }
+        }
+
+        function createConfetti() {
+            const colors = ['#10b981', '#059669', '#6ee7b7', '#a7f3d0'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (2 + Math.random() * 1) + 's';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
             }
         }
 
@@ -641,6 +759,7 @@ self.addEventListener('fetch', event => {
 
         function addDailySteps() {
             const stepsInput = document.getElementById('daily-steps');
+            const dateInput = document.getElementById('steps-date');
             const steps = parseInt(stepsInput.value);
 
             if (!steps || steps < 0) {
@@ -648,23 +767,29 @@ self.addEventListener('fetch', event => {
                 return;
             }
 
-            const data = loadData();
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            if (!dateInput.value) {
+                alert('Vennligst velg en dag');
+                return;
+            }
 
-            const existingIndex = data.entries.findIndex(e => new Date(e.date).toDateString() === today.toDateString());
+            const data = loadData();
+            const selectedDate = new Date(dateInput.value);
+            selectedDate.setHours(0, 0, 0, 0);
+
+            const existingIndex = data.entries.findIndex(e => new Date(e.date).toDateString() === selectedDate.toDateString());
 
             if (existingIndex >= 0) {
                 data.entries[existingIndex].steps = steps;
             } else {
                 data.entries.push({
-                    date: today.toISOString(),
+                    date: selectedDate.toISOString(),
                     steps: steps
                 });
             }
 
             saveData(data);
             stepsInput.value = '';
+            dateInput.value = getTodayDateString();
             stepsInput.focus();
             updateDisplay();
         }
@@ -709,13 +834,15 @@ self.addEventListener('fetch', event => {
             document.getElementById('steps-done').textContent = totalSteps.toLocaleString('no-NO');
             document.getElementById('steps-remaining').textContent = remaining.toLocaleString('no-NO');
 
-            const progressFill = document.getElementById('progress-fill');
-            progressFill.style.width = progress + '%';
-            progressFill.setAttribute('data-percent', Math.round(progress) + '%');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercentage = document.getElementById('progress-percentage');
+            progressBar.style.width = progress + '%';
+            progressPercentage.textContent = Math.round(progress) + '%';
 
             const completionMsg = document.getElementById('completion-message');
             if (remaining === 0 && totalSteps > 0) {
                 completionMsg.style.display = 'block';
+                createConfetti();
             } else {
                 completionMsg.style.display = 'none';
             }
@@ -760,7 +887,10 @@ self.addEventListener('fetch', event => {
         }, { passive: false });
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', updateDisplay);
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('steps-date').value = getTodayDateString();
+            updateDisplay();
+        });
     </script>
 </body>
 </html>
