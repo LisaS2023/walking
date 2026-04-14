@@ -772,13 +772,41 @@ self.addEventListener('fetch', event => {
             const data = loadData();
             currentMode = data.mode;
             currentPeriod = data.period;
+            
+            // Oppdater knapper
+            document.querySelectorAll('.mode-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === currentMode);
+            });
+            document.querySelectorAll('.period-button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.period === currentPeriod);
+            });
+            
+            // Vis/skjul custom input
+            const customInput = document.getElementById('custom-period-input');
+            if (currentPeriod === 'custom') {
+                customInput.style.display = 'block';
+                if (data.customDays) {
+                    document.getElementById('custom-days').value = data.customDays;
+                }
+            } else {
+                customInput.style.display = 'none';
+            }
+            
+            // Oppdater label
+            updateGoalLabel();
+            
+            // Vis setup section
             document.querySelector('.setup-section').classList.remove('hidden');
             document.querySelector('.tracking-section').classList.add('hidden');
         }
 
         function resetWeekConfirm() {
-            const periodText = currentPeriod === 'week' ? 'uken' : 'måneden';
-            if (confirm(`Slett all data for denne ${periodText}?`)) {
+            let periodText = 'perioden';
+            if (currentPeriod === 'week') periodText = 'uken';
+            else if (currentPeriod === 'month') periodText = 'måneden';
+            else if (currentPeriod === 'custom') periodText = `de ${loadData().customDays} dagene`;
+            
+            if (confirm(`Slett all data for ${periodText}?`)) {
                 const data = loadData();
                 data.entries = [];
                 saveData(data);
